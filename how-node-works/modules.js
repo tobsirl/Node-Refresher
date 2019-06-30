@@ -12,6 +12,15 @@ const addition = cal1.add(2, 5);
 console.log(addition);
 
 // ! exports
-const calc2 = require('./test-module-2');
+// const calc2 = require('./test-module-2');
+const { add, multiply, divide } = require('./test-module-2');
 
-console.log(calc2.add(2, 5));
+console.log(add(2, 5));
+console.log(multiply(2, 5));
+console.log(divide(2, 5));
+
+// ! caching
+
+require('./test-module-3')();
+require('./test-module-3')();
+require('./test-module-3')();
