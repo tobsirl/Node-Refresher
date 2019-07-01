@@ -32,12 +32,19 @@ const getDogPic = async () => {
 
     await writeFilePro('dog-image.txt', res.body.message);
     console.log('Random dog image saved to file!');
+    return '2: Ready';
   } catch (err) {
     console.log(err);
+    throw err;
   }
 };
 
-getDogPic();
+console.log('1: Will get dog pics!');
+
+getDogPic().then(x => {
+  console.log(x);
+  console.log('3: Done getting dog pics!');
+});
 
 // ! Using Promises then/catch
 // readFilePro(`${__dirname}/dog.txt`)
