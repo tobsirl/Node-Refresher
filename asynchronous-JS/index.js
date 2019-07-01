@@ -39,12 +39,25 @@ const getDogPic = async () => {
   }
 };
 
-console.log('1: Will get dog pics!');
+(async () => {
+  try {
+    console.log('1: Will get dog pics!');
+    const result = await getDogPic();
+    console.log(result);
+    console.log('3: Done getting dog pics!');
+  } catch (err) {
+    console.log('Error!');
+  }
+})();
 
-getDogPic().then(x => {
-  console.log(x);
-  console.log('3: Done getting dog pics!');
-});
+// console.log('1: Will get dog pics!');
+
+// getDogPic()
+//   .then(x => {
+//     console.log(x);
+//     console.log('3: Done getting dog pics!');
+//   })
+//   .catch(err => console.log('Error!'));
 
 // ! Using Promises then/catch
 // readFilePro(`${__dirname}/dog.txt`)
