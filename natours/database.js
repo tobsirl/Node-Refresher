@@ -3,10 +3,9 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const DB = process.env.MONGODB.replace(
-  '<password>',
-  process.env.MONGODB_PASSWORD
-);
+const { MONGODB, MONGODB_PASSWORD } = process.env;
+
+const DB = MONGODB.replace('<password>', MONGODB_PASSWORD);
 
 const connectDatabase = async () => {
   try {
