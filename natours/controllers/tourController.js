@@ -23,6 +23,19 @@ class APIFeatures {
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
 
     this.query.find(JSON.parse(queryStr));
+
+    return this;
+  }
+
+  sort() {
+    if (this.queryString) {
+      const sortBy = this.queryString.sort.split(',').join(' ');
+      this.query = this.query.sort(sortBy);
+      // sort('price ratingsAverage)
+    } else {
+      this.query = this.query.sort('-createdAt');
+    }
+    return this;
   }
 }
 
@@ -43,13 +56,13 @@ exports.getAllTours = async (req, res) => {
     // let query = Tour.find(JSON.parse(queryStr));
 
     // 2) Sorting
-    if (req.query.sort) {
-      const sortBy = req.query.sort.split(',').join(' ');
-      query = query.sort(sortBy);
-      // sort('price ratingsAverage)
-    } else {
-      query = query.sort('-createdAt');
-    }
+    // if (req.query.sort) {
+    //   const sortBy = req.query.sort.split(',').join(' ');
+    //   query = query.sort(sortBy);
+    //   // sort('price ratingsAverage)
+    // } else {
+    //   query = query.sort('-createdAt');
+    // }
 
     // const tours = Tour.find()
     //   .where('duration')
@@ -79,7 +92,8 @@ exports.getAllTours = async (req, res) => {
     }
 
     // Execute the query
-    const tours = await query;
+    const features = new APIFeatures(Tour.find(), req.query).filter();
+    const tours = await features.query;
 
     // Send response
     res.status(200).json({
