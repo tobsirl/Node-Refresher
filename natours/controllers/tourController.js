@@ -37,6 +37,16 @@ class APIFeatures {
     }
     return this;
   }
+
+  limitField() {
+    if (this.queryString.fields) {
+      const fields = this.queryString.fields.split(',').join(' ');
+      this.query = this.query.select(fields);
+    } else {
+      this.query = this.query.select('-__v');
+    }
+    return this;
+  }
 }
 
 exports.getAllTours = async (req, res) => {
@@ -71,12 +81,12 @@ exports.getAllTours = async (req, res) => {
     //   .equals('easy');
 
     // 3) Field limiting
-    if (req.query.fields) {
-      const fields = req.query.fields.split(',').join(' ');
-      query = query.select(fields);
-    } else {
-      query = query.select('-__v');
-    }
+    // if (req.query.fields) {
+    //   const fields = req.query.fields.split(',').join(' ');
+    //   query = query.select(fields);
+    // } else {
+    //   query = query.select('-__v');
+    // }
 
     // 4) Pagination
     const page = req.query.page * 1 || 1;
