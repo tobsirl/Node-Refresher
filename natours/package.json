@@ -1,6 +1,9 @@
 {
   "name": "natours",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=11.11.0"
+  },
   "description": "Example project",
   "main": "app.js",
   "scripts": {
