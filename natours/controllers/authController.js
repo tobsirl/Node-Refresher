@@ -30,10 +30,11 @@ exports.login = (req, res, next) => {
 
   // 1) Check if email and password exists
   if (!email || !password) {
-    next(new AppError('Please provide email and password!', 400));
+    return next(new AppError('Please provide email and password!', 400));
   }
 
   // 2) Check if user exists && password is correct
+  const user = User.findOne({ email: email });
 
   // 3) If everything ok, send token to client
   const token = '';
