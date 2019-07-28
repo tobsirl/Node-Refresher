@@ -116,8 +116,4 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 3) Send it to user's email
 });
 
-userSchema.methods.createPasswordResetToken = function() {
-  
-}
-
 exports.resetPassword = (req, res, next) => {};
