@@ -42,7 +42,18 @@ app.use(mongoSanitize());
 app.use(xss());
 
 // Parameter pollution - protect against HTTP Parameter Pollution attacks
-app.use(hpp());
+app.use(
+  hpp({
+    whitelist: [
+      'duration',
+      'ratingsQuantity',
+      'ratingsAverage',
+      'maxGroupSize',
+      'difficulty',
+      'price'
+    ]
+  })
+);
 
 // Servering static files
 app.use(express.static(`${__dirname}/public`));
