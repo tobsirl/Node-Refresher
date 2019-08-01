@@ -3,12 +3,13 @@ const {
   createReview,
   getAllReviews
 } = require('../controllers/reviewController');
+const { protect, restrictTo } = require('../controllers/authController');
 
 const router = express.Router();
 
 router
   .route('/')
   .get(getAllReviews)
-  .post(createReview);
+  .post(protect, restrictTo('user'), createReview);
 
 module.exports = router;
