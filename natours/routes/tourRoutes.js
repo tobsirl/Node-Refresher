@@ -34,6 +34,6 @@ router
 
 router
   .route('/:tourId/reviews')
-  .post(protect, restrictTo('users', createReview));
+  .post(protect, restrictTo('user'), createReview);
 
 module.exports = router;
