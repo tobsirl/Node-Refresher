@@ -8,11 +8,7 @@ const Review = require('./../../models/reviewModel');
 
 dotenv.config();
 
-// const { MONGODB, MONGODB_PASSWORD } = process.env;
-// console.log(process.env.MONGODB);
-
-const MONGODB = `mongodb+srv://tobsirl:<password>@cluster0-aqv9b.mongodb.net/natours?retryWrites=true&w=majority`;
-const MONGODB_PASSWORD = 't8WHIUYyGADZ30AB';
+const { MONGODB, MONGODB_PASSWORD } = process.env;
 
 const DB = MONGODB.replace('<password>', MONGODB_PASSWORD);
 
