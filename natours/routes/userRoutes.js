@@ -22,15 +22,17 @@ const router = express.Router();
 
 router.post('/signup', signup);
 router.post('/login', login);
-
 router.post('/forgotpassword', forgotPassword);
 router.patch('/resetpassword/:token', resetPassword);
 
-router.patch('/updateMyPassword', protect, updatePassword);
+// All routes below this will be proctected
+router.use(protect);
 
-router.get('/me', protect, getMe, getUser);
-router.patch('/updateMe', protect, updateMe);
-router.delete('/deleteMe', protect, deleteMe);
+router.patch('/updateMyPassword', updatePassword);
+
+router.get('/me', getMe, getUser);
+router.patch('/updateMe', updateMe);
+router.delete('/deleteMe', deleteMe);
 
 router
   .route('/')
