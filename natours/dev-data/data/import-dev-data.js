@@ -8,7 +8,11 @@ const Review = require('./../../models/reviewModel');
 
 dotenv.config();
 
-const { MONGODB, MONGODB_PASSWORD } = process.env;
+// const { MONGODB, MONGODB_PASSWORD } = process.env;
+// console.log(process.env.MONGODB);
+
+const MONGODB = `mongodb+srv://tobsirl:<password>@cluster0-aqv9b.mongodb.net/natours?retryWrites=true&w=majority`;
+const MONGODB_PASSWORD = 't8WHIUYyGADZ30AB';
 
 const DB = MONGODB.replace('<password>', MONGODB_PASSWORD);
 
@@ -38,7 +42,7 @@ const DB = MONGODB.replace('<password>', MONGODB_PASSWORD);
   const importData = async () => {
     try {
       await Tour.create(tours);
-      await User.create(users);
+      await User.create(users, { validateBeforeSave: false });
       await Review.create(reviews);
       console.log('Data successfully loaded');
     } catch (error) {
