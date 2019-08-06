@@ -77,9 +77,13 @@ reviewSchema.post('save', function() {
 // findByIdAndUpdate
 // findByIdAndDelete
 reviewSchema.pre(/^findOneAnd/, async function(next) {
-  const review = await this.findOne();
-  console.log(review);
+  this.review = await this.findOne();
+  console.log(this.review);
   next();
+});
+
+reviewSchema.post(/^findOneAnd/, async function() {
+  await this.review.constructor.calcAverageRatings(this.review.tour);
 });
 
 const Review = mongoose.model('Review', reviewSchema);
