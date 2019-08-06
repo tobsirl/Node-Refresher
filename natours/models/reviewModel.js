@@ -62,7 +62,7 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
       }
     }
   ]);
-  console.log(stats);
+  // console.log(stats);
 
   if (stats.length > 0) {
     await Tour.findByIdAndUpdate(tourId, {
@@ -77,6 +77,9 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
   }
 };
 
+// Each combination of tour and user has to be unique
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 reviewSchema.post('save', function() {
   // this points to current review
   this.constructor.calcAverageRatings(this.tour);
@@ -86,7 +89,7 @@ reviewSchema.post('save', function() {
 // findByIdAndDelete
 reviewSchema.pre(/^findOneAnd/, async function(next) {
   this.review = await this.findOne();
-  console.log(this.review);
+  // console.log(this.review);
   next();
 });
 
