@@ -108,7 +108,7 @@ exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
 });
 
 // /tours-within/:distance/center/:latlng/unit/:unit
-// /tours-within/233/center/52.3587559,-7.6908126/unit/mi
+// /tours-within/233/center/34.149232,-118.149779/unit/mi
 exports.getToursWithin = catchAsync(async (req, res, next) => {
   const { distance, latlng, unit } = req.params;
   const [lat, lng] = latlng.split(',');
@@ -125,7 +125,7 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
   }
 
   const tours = await Tour.find({
-    startLocation: { $geoWithin: { $centerShpere: [[lng, lat], radius] } }
+    startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius] } }
   });
 
   res.status(200).json({
@@ -135,4 +135,30 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
       data: tours
     }
   });
+});
+
+exports.getDistances = catchAsync(async (req, res, next) => {
+  const { latlng, unit } = req.params;
+  const [lat, lng] = latlng.split(',');
+
+  if (!lat || !lng) {
+    next(
+      new AppError(
+        'Please provide latitude and longitude in the format lat,lng.',
+        400
+      )
+    );
+  }
+
+  const distances = await Tour.aggregate([
+    {
+      $geoNear: {
+        near: {
+          type: 'Point',
+          coordinates: [lng, lat * 1]
+        },
+        distanceField: 'distance'
+      }
+    }
+  ]);
 });
