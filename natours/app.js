@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const morgan = require('morgan');
 
 // Security modules
@@ -19,6 +20,10 @@ const app = express();
 
 // Templating engine - PUG
 app.set('veiw engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+// Servering static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Security HTTP headers
 app.use(helmet());
@@ -58,9 +63,6 @@ app.use(
     ]
   })
 );
-
-// Servering static files
-app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
