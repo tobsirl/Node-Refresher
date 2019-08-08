@@ -17,6 +17,9 @@ const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
 
+// Templating engine - PUG
+app.set('veiw engine', 'pug');
+
 // Security HTTP headers
 app.use(helmet());
 
