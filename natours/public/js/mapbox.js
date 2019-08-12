@@ -8,7 +8,8 @@ mapboxgl.accessToken =
 
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/tobsirl/cjz860kko3egm1co29aiyt695'
+  style: 'mapbox://styles/tobsirl/cjz860kko3egm1co29aiyt695',
+  scrollZoom: false
   // center: [-118.113491, 34.111745],
   // zoom: 10,
   // interactive: false
