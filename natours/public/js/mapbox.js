@@ -28,4 +28,16 @@ locations.forEach(loc => {
   })
     .setLngLat(loc.coordinates)
     .addTo(map);
+
+  // Extend map bounds to include current location
+  bounds.extend(loc.coordinates);
+});
+
+map.fitBounds(bounds, {
+  padding: {
+    top: 200,
+    bottom: 150,
+    left: 100,
+    right: 100
+  }
 });
