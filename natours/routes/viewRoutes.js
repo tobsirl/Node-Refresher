@@ -4,11 +4,13 @@ const {
   getTour,
   getLoginForm
 } = require('../controllers/viewsController');
+const { isLoggedIn } = require('../controllers/authController');
 
 const router = express.Router();
 
-router.get('/', getOverview);
+router.use(isLoggedIn);
 
+router.get('/', getOverview);
 router.get('/tour/:slug', getTour);
 router.get('/login', getLoginForm);
 
